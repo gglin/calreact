@@ -1,9 +1,17 @@
 var AppointmentForm = React.createClass({
   handleChange: function(e) {
     var name = e.target.name;
-    obj = {};
+    var obj = {};
     obj[name] = e.target.value;
     this.props.onUserInput(obj);
+  },
+
+  setApptTime: function(e) {
+    var name = 'appt_time';
+    var obj = {};
+    if(obj[name] = e.toDate()) {
+      this.props.onUserInput(obj);
+    }
   },
 
   handleSubmit: function(e) {
@@ -12,6 +20,10 @@ var AppointmentForm = React.createClass({
   },
 
   render: function() {
+    var inputProps = {
+      name: 'appt_time'
+    };
+
     return (
       <div>
         <h2>Make a new appointment </h2>
@@ -19,9 +31,10 @@ var AppointmentForm = React.createClass({
           <input name='title' placeholder='Appointment Title'
             value={this.props.title}
             onChange={this.handleChange} />
-          <input name='appt_time' placeholder='Date and time'
+          <Datetime input={false} open={true}
+            inputProps={inputProps}
             value={this.props.appt_time}
-            onChange={this.handleChange} />
+            onChange={this.setApptTime} />
           <input type='submit' value='Make Appointment' />
         </form>
       </div>
